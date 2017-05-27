@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4252.robot;
 
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.Victor;
 
 /**
@@ -12,6 +13,6 @@ public class RobotMap {
 	public static final Victor Drive_FLeft = new Victor(0),
 	    Drive_RLeft = new Victor(1),		
 		Drive_FRight = new Victor(2),
-		Drive_RRight = new Victor(3),	
-		Climber = new Victor(4);	
+		Drive_RRight = new Victor(3);
+	Spark Climber = new Spark(0);	
 }

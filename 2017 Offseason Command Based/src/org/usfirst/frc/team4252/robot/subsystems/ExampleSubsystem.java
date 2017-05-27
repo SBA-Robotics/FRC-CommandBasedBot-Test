@@ -1,7 +1,7 @@
 package org.usfirst.frc.team4252.robot.subsystems;
 
 import org.usfirst.frc.team4252.robot.RobotMap;
-import edu.wpi.first.wpilibj.Victor;
+import edu.wpi.first.wpilibj.Spark;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class ExampleSubsystem extends Subsystem {
 	// Put methods for controlling this subsystem
 	// here. Call these from Commands.
-	Victor Climber = RobotMap.Climber;
+	Spark Climber = RobotMap.Climber;
 		
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
