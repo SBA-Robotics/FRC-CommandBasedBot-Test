@@ -1,7 +1,5 @@
 
 package org.usfirst.frc.team4252.robot;
-
-import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.CameraServer;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -10,7 +8,8 @@ import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-import org.usfirst.frc.team4252.robot.commands.DriveForwardAutoCommand;
+import org.usfirst.frc.team4252.robot.commands.ExampleCommand;
+import org.usfirst.frc.team4252.robot.commands.autonomous.DriveForwardAutoCommand;
 import org.usfirst.frc.team4252.robot.subsystems.ClimberSubsystem;
 import org.usfirst.frc.team4252.robot.subsystems.DriveTrainSubsystem;
 import org.usfirst.frc.team4252.robot.subsystems.ExampleSubsystem;
@@ -27,7 +26,6 @@ public class Robot extends IterativeRobot {
 	public static final ExampleSubsystem exampleSubsystem = new ExampleSubsystem();
 	public static final DriveTrainSubsystem DriveTrain = new DriveTrainSubsystem();
 	public static OI oi;
-	public static AnalogGyro ag = new AnalogGyro(0); //Declaration of a gyroscope plugged into analog port 0.
 	Command autonomousCommand;
 	SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -39,8 +37,9 @@ public class Robot extends IterativeRobot {
 	public void robotInit() {
 		oi = new OI();
 		chooser.addDefault("Drive Straight", new DriveForwardAutoCommand());
+		//chooser.addDefault("Example Command", new ExampleCommand());
 		CameraServer.getInstance().startAutomaticCapture();
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		chooser.addObject("My Auto", new DriveForwardAutoCommand());
 		SmartDashboard.putData("Auto mode", chooser);
 	}
 
