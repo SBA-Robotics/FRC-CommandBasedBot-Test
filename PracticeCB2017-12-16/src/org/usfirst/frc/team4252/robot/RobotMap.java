@@ -39,7 +39,14 @@ public class RobotMap {
 	//*********************************************************
 	//*********************Number Constants********************
 	//*********************************************************
+	//Distance Set
 	public static final int ForwardDistanceAuto = 114;
+	//Angle Set
+	public static final double kAngleP = 0.03;
+	public static final double kAngleD = -0.02;
+	//Speed Set
+	public static final double kSpeedP = 0.03;
+	public static final double kSpeedD = 0.03;
 	//
 		
 		

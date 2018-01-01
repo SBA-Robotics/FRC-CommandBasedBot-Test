@@ -17,20 +17,8 @@ public class DriveForwardAutoCommand extends Command {
 	
 	@SuppressWarnings("deprecation")
 	protected void execute() {
-		SmartDashboard.putString("Autonomous Status", "Executing");
-		Robot.DriveTrain.reset();
-		while(Robot.DriveTrain.getLEncoder() <= RobotMap.ForwardDistanceAuto && Robot.DriveTrain.getREncoder() <= RobotMap.ForwardDistanceAuto) 
-		{
-			angle = Robot.DriveTrain.getAngle();
-			Robot.DriveTrain.drive(-0.5, -angle * 0.03); 
-			SmartDashboard.putDouble("Angle", angle);
-			SmartDashboard.putDouble("LDistance", Robot.DriveTrain.getLEncoder());
-			SmartDashboard.putDouble("RDistance", Robot.DriveTrain.getREncoder());
-			
-			//This is what David Moss made as his forward autonomous, the bot should correct its angle proportional to deviation
-		}
-		Robot.DriveTrain.drive(0, 0); //After which it stops...
-		Timer.delay(10.0); //For 10 seconds.
+		SmartDashboard.putString("Autonomous Status", "Executing");	
+		Robot.DriveTrain.driveEncodedStraight(RobotMap.ForwardDistanceAuto);
 	}
 		
 	

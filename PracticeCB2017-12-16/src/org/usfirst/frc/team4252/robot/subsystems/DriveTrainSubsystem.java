@@ -1,5 +1,6 @@
 package org.usfirst.frc.team4252.robot.subsystems;
 
+import org.usfirst.frc.team4252.robot.Robot;
 import org.usfirst.frc.team4252.robot.RobotMap;
 import org.usfirst.frc.team4252.robot.commands.ArcadeDriveCommand;
 
@@ -7,7 +8,9 @@ import edu.wpi.first.wpilibj.AnalogGyro;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.RobotDrive;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 public class DriveTrainSubsystem extends Subsystem {
 	
@@ -33,6 +36,7 @@ public class DriveTrainSubsystem extends Subsystem {
 		encodeR.setSamplesToAverage(7);
 		//Gyro
 		ag = new AnalogGyro(RobotMap.AGyro); //Declaration of a gyroscope plugged into analog port 0.
+		//PID Controller
 
 	}	
 	
@@ -48,6 +52,38 @@ public class DriveTrainSubsystem extends Subsystem {
 	public void drive(double speed,double turn) {
 		MainDrive.drive(speed, turn);
 	}
+	
+	public void driveEncodedStraight(int distance) {
+		double angle, error;
+		reset();
+		error = distance - ((getREncoder() + getLEncoder()) / 2);
+		while(error > 20) 
+		{
+			angle = getAngle();
+			drive(-0.5, -angle * RobotMap.kAngleP);
+			error = distance - ((getREncoder() + getLEncoder()) / 2);
+		}
+		
+		while(error > 0) 
+		{
+			error = distance - ((getREncoder() + getLEncoder()) / 2);
+			angle = getAngle();
+			Robot.DriveTrain.drive(RobotMap.kSpeedD + (RobotMap.kSpeedP * error), -angle * RobotMap.kAngleP);
+			
+			//This is what David Moss made as his forward autonomous, the bot should correct its angle proportional to deviation
+		}
+		Robot.DriveTrain.drive(0, 0); //After which it stops...
+	}
+	
+	public void driveGryoSpin(double angle) {
+		double angleSpin;
+		reset();
+
+		angleSpin = angle - getAngle();
+			drive(0, angleSpin * RobotMap.kAngleP + RobotMap.kAngleD);
+	}
+	
+	
 	public void reset() {
 		encodeL.reset();
 		encodeR.reset();
